@@ -14,10 +14,15 @@
         <!-- Customize your theme here. -->
 
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+
     </style>
+
+
 
     <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">@color/red_100</item>
     </style>
+
+
 
 </resources>

@@ -12,6 +12,3 @@ interface RetrofitPictureAPI {
         @Query("api_key") apiKey: String)
     : Call<PictureResponseData>
 }
-//https://api.nasa.gov/planetary/apod
-// ?date=2020-02-01
-// &api_key=ZN4hEfubb9aL0eROMvhhEeKhcgPa0e8myfoIZ19P

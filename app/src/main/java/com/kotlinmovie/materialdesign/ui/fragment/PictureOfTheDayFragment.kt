@@ -5,11 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
@@ -21,6 +23,7 @@ import com.kotlinmovie.materialdesign.ui.MainActivity
 import com.kotlinmovie.materialdesign.viewModel.DataModel
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
+import kotlinx.coroutines.NonCancellable.start
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,7 +48,7 @@ class PictureOfTheDayFragment : Fragment() {
     private var isMain: Boolean = true
 
     private var mContext: Context? = null
-
+    private var selectedDate = "2022-02-21"
 
 
     override fun onCreateView(
@@ -56,26 +59,22 @@ class PictureOfTheDayFragment : Fragment() {
         mContext = context
         _binding = FragmentMainPictureOfDayBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        iniViewModel()
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-
-
-iniViewModel()
-
         init()
     }
 
     private fun iniViewModel() {
-        var selectedDate = ""
-//        val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//        selectedDate = dateFormat.format(Date())
-//
-//        modelDada.positionChips.observe(activity as LifecycleOwner){ it -> selectedDate = it}
-
-        viewModel.sendServerRequest(selectedDate, onError = ::loadingError)
+        viewModel.getLiveData().observe(viewLifecycleOwner) { this.renderData(it) }
+        modelDada.positionChips.observe(viewLifecycleOwner, androidx.lifecycle.Observer { string ->
+            selectedDate = string
+        })
+        viewModel.sendServerRequest(date = selectedDate, onError = ::loadingError)
     }
 
     private fun init() {
@@ -126,9 +125,12 @@ iniViewModel()
                 Toast.makeText(mContext, "не прошла загрузка", Toast.LENGTH_LONG).show()
             }
             is PictureOfTheDayState.Loading -> {
+                binding.progressBar.visibility = ProgressBar.VISIBLE;
+
             }
             is PictureOfTheDayState.Success -> {
                 binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
+                binding.progressBar.visibility = ProgressBar.INVISIBLE;
 
                 binding.included.bottomSheetDescriptionHeader
                     .text = pictureOfTheDayState.serverResponseData.title
@@ -140,7 +142,7 @@ iniViewModel()
 
     private fun initBottomSheetBehavior() {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private fun clickIconWikipedia() {
@@ -176,7 +178,6 @@ iniViewModel()
                 BottomNavigationDrawerFragment()
                     .show(requireActivity().supportFragmentManager, "")
             }
-
         }
         return super.onOptionsItemSelected(item)
     }
