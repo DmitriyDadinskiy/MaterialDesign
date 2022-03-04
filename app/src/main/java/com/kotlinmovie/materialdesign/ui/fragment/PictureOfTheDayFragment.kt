@@ -11,8 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -23,10 +21,6 @@ import com.kotlinmovie.materialdesign.ui.MainActivity
 import com.kotlinmovie.materialdesign.viewModel.DataModel
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
-import kotlinx.coroutines.NonCancellable.start
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -74,6 +68,7 @@ class PictureOfTheDayFragment : Fragment() {
         modelDada.positionChips.observe(viewLifecycleOwner, androidx.lifecycle.Observer { string ->
             selectedDate = string
         })
+
         viewModel.sendServerRequest(date = selectedDate, onError = ::loadingError)
     }
 
@@ -171,7 +166,7 @@ class PictureOfTheDayFragment : Fragment() {
             ).show()
             R.id.app_bar_settings -> {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, ChipsFragment.newInstance()).addToBackStack("")
+                    .replace(R.id.container, SettingsFragment.newInstance()).addToBackStack("")
                     .commit()
             }
             android.R.id.home -> {

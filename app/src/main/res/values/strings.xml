@@ -8,4 +8,5 @@
     <string name="settings">settings</string>
     <string name="search">Search</string>
     <string name="imageDesc">Картинка</string>
+    <string name="text_theme_LightGreen">Светло-зеленная</string>
 </resources>

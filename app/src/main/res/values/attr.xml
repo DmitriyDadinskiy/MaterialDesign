@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name = "ollColor_100" format="color"/>
+    <attr name = "ollColor_200" format="color"/>
+    <attr name = "ollColor_500" format="color"/>
+    <attr name = "ollColor_600" format="color"/>
+    <attr name = "ollColor_700" format="color"/>
+    <attr name = "ollColor_800" format="color"/>
+    <attr name = "ollColor_900" format="color"/>
+
+
+
+</resources>
