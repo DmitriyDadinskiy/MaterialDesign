@@ -138,6 +138,10 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    override fun onStart() {
+        binding.nightThemeSwitch1.isChecked = preferences.getBoolean(SHARE_PREF_NAME,false)
+        super.onStart()
+    }
 
 
     override fun onStop() {

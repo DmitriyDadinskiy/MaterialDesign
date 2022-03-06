@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             LightGreen -> R.style.MyLightGreen
             BlueGrey -> R.style.MyBlueGrey
             Cyan-> R.style.MyCyan
-            else -> 0
+            else -> R.style.MyCyan
         }
     }
 }
