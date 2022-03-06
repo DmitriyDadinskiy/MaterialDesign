@@ -22,6 +22,7 @@
         <item name="circularProgressIndicatorStyle">@style/myCircularProgressBar</item>
         <item name="textInputStyle">@style/AppTextField</item>
 
+
     </style>
 
 

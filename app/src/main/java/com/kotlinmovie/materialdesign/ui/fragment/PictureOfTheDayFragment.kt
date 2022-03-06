@@ -21,6 +21,9 @@ import com.kotlinmovie.materialdesign.ui.MainActivity
 import com.kotlinmovie.materialdesign.viewModel.DataModel
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -44,7 +47,11 @@ class PictureOfTheDayFragment : Fragment() {
     private var mContext: Context? = null
     private var selectedDate = "2022-02-21"
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        selectedDate = dateFormat.format(Date())
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
