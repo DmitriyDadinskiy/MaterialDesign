@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/bg_earth.xml" value="0.1" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/bg_mars.xml" value="0.1" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/bg_mars2.xml" value="0.2735" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/bg_sores.xml" value="0.172" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/bg_sputnik.xml" value="0.2735" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/bg_system.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_archive.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_back_fab.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_favourite_menu.xml" value="0.1" />
@@ -15,15 +21,23 @@
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_settings_menu.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_wikipedia.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/font/font.xml" value="0.27870370370370373" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_bottom_navigation_view.xml" value="0.22" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_navigation.xml" value="0.35279187817258884" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.25" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragmen_sputnik.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_chips.xml" value="0.25" />
-        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_main_picture_of_day.xml" value="0.1" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_earth.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_main_picture_of_day.xml" value="0.33" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_mars.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_settings.xml" value="0.29770992366412213" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_solar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_system.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/menu/menu_bottom_bar.xml" value="0.33" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/menu/menu_bottom_bar_other_screen.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/menu/menu_bottom_navigation_view.xml" value="0.33" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>

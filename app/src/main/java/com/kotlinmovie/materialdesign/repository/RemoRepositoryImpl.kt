@@ -1,6 +1,7 @@
 package com.kotlinmovie.materialdesign.repository
 
 import com.google.gson.GsonBuilder
+import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,4 +15,6 @@ class RemoRepositoryImpl {
             .build()
         return retrofit.create(RetrofitPictureAPI::class.java)
     }
+
+
 }

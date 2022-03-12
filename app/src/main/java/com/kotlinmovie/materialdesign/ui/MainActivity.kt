@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         return sharedPreferences.getInt(KEY_CURRENT_THEME, -1)
     }
 
-    private fun getRealStyle(currentTheme: Int): Int {
+    fun getRealStyle(currentTheme: Int): Int {
         return when (currentTheme) {
             LightGreen -> R.style.MyLightGreen
             BlueGrey -> R.style.MyBlueGrey

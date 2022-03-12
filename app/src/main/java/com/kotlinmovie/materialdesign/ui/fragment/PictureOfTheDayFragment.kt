@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kotlinmovie.materialdesign.R
 import com.kotlinmovie.materialdesign.databinding.FragmentMainPictureOfDayBinding
 import com.kotlinmovie.materialdesign.ui.MainActivity
+import com.kotlinmovie.materialdesign.ui.navigation.BottomNavigationViewActivity
 import com.kotlinmovie.materialdesign.viewModel.DataModel
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
@@ -49,9 +50,15 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initTodayDate()
+
+    }
+
+    private fun initTodayDate() {
         val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         selectedDate = dateFormat.format(Date())
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -180,6 +187,7 @@ class PictureOfTheDayFragment : Fragment() {
                 BottomNavigationDrawerFragment()
                     .show(requireActivity().supportFragmentManager, "")
             }
+
         }
         return super.onOptionsItemSelected(item)
     }

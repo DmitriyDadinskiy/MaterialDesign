@@ -1,5 +1,6 @@
 package com.kotlinmovie.materialdesign.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 
 import android.view.LayoutInflater
@@ -7,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.kotlinmovie.materialdesign.R
 import com.kotlinmovie.materialdesign.databinding.BottomNavigationLayoutBinding
-import com.kotlinmovie.materialdesign.databinding.BottomSheetLayoutBinding
+import com.kotlinmovie.materialdesign.ui.navigation.BottomNavigationViewActivity
+import com.kotlinmovie.materialdesign.ui.navigation.NavigationActivity
 
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -25,6 +28,37 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         _binding = BottomNavigationLayoutBinding.inflate(inflater, container, false)
         return binding.root
 
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initClickMenu()
+    }
+
+    private fun initClickMenu() {
+        binding.navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_earth -> {
+                    startActivity(
+                        Intent(
+                            requireContext(),
+                            BottomNavigationViewActivity::class.java))
+                    dismiss()
+                }
+                R.id.navigation_pager -> {
+                    startActivity(Intent(requireContext(),NavigationActivity::class.java))
+
+                    dismiss()
+                }
+            }
+            true
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

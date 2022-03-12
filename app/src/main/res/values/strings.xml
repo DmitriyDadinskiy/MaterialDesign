@@ -9,4 +9,5 @@
     <string name="search">Search</string>
     <string name="imageDesc">Картинка</string>
     <string name="text_theme_LightGreen">Светло-зеленная</string>
+    <string name="photo_of_the_day_mars">photo_of_the_day_mars</string>
 </resources>
