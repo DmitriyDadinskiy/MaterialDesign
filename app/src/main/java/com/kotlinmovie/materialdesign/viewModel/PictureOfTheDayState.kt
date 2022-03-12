@@ -1,6 +1,6 @@
 package com.kotlinmovie.materialdesign.viewModel
 
-import com.kotlinmovie.materialdesign.repository.PictureResponseData
+import com.kotlinmovie.materialdesign.repository.data.PictureResponseData
 
 sealed class PictureOfTheDayState {
 

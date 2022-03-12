@@ -2,6 +2,7 @@ package com.kotlinmovie.materialdesign.ui.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,10 +46,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         )
     }
     private lateinit var parentActivity: MainActivity
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         parentActivity = requireActivity() as MainActivity
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,11 +77,14 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         binding.MyCyanRadioButton2.setOnClickListener(this)
         binding.MyLightGreenRadioButton.setOnClickListener(this)
 
+        if (Build.VERSION.SDK_INT <= 28) {
+            binding.nightThemeSwitch1.visibility = View.GONE
+        }
         binding.nightThemeSwitch1.setOnCheckedChangeListener { buttonView, isChecked ->
-            positionSwitch = if(isChecked){
+            positionSwitch = if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 isChecked
-            }else{
+            } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 isChecked
             }
@@ -89,8 +95,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         if (v != null) {
-            when(v.id){
-                R.id.MyLightGreen_radioButton ->{
+            when (v.id) {
+                R.id.MyLightGreen_radioButton -> {
                     parentActivity.setCurrentTheme(LightGreen)
                     parentActivity.recreate()
                 }
@@ -98,7 +104,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     parentActivity.setCurrentTheme(BlueGrey)
                     parentActivity.recreate()
                 }
-                R.id.MyCyan_radioButton2 ->{
+                R.id.MyCyan_radioButton2 -> {
                     parentActivity.setCurrentTheme(Cyan)
                     parentActivity.recreate()
                 }
@@ -139,7 +145,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onStart() {
-        binding.nightThemeSwitch1.isChecked = preferences.getBoolean(SHARE_PREF_NAME,false)
+        binding.nightThemeSwitch1.isChecked = preferences.getBoolean(SHARE_PREF_NAME, false)
         super.onStart()
     }
 

@@ -1,4 +1,4 @@
-package com.kotlinmovie.materialdesign.repository
+package com.kotlinmovie.materialdesign.repository.data
 
 import com.google.gson.annotations.SerializedName
 

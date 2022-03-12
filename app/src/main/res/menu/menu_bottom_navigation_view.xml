@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/navigation_earth"
+            android:icon="@drawable/bg_earth"
+            android:title="Земля" />
+        <item
+            android:id="@+id/navigation_pager"
+            android:icon="@drawable/bg_mars"
+            android:title="Марс" />
+        <item
+            android:id="@+id/navigation_system"
+            android:icon="@drawable/bg_system"
+            android:title="Система" />
+        <item
+            android:id="@+id/navigation_solar"
+            android:icon="@drawable/bg_solar"
+            android:title="Солнце" />
+        <item
+            android:id="@+id/navigation_sputnik"
+            android:icon="@drawable/bg_sputnik"
+            android:title="Спутник" />
+
+    </group>
+
+</menu>
