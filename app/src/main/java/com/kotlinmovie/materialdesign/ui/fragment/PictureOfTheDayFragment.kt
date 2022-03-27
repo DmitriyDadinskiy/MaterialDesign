@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -18,8 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kotlinmovie.materialdesign.R
 import com.kotlinmovie.materialdesign.databinding.FragmentMainPictureOfDayBinding
 import com.kotlinmovie.materialdesign.ui.MainActivity
-import com.kotlinmovie.materialdesign.ui.navigation.BottomNavigationViewActivity
-import com.kotlinmovie.materialdesign.viewModel.DataModel
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
 import java.text.DateFormat
@@ -39,7 +36,7 @@ class PictureOfTheDayFragment : Fragment() {
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this)[PictureOfTheDayViewModel::class.java]
     }
-    private val modelDada: DataModel by activityViewModels()
+
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -79,10 +76,6 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun iniViewModel() {
         viewModel.getLiveData().observe(viewLifecycleOwner) { this.renderData(it) }
-        modelDada.positionChips.observe(viewLifecycleOwner, androidx.lifecycle.Observer { string ->
-            selectedDate = string
-        })
-
         viewModel.sendServerRequest(date = selectedDate, onError = ::loadingError)
     }
 
@@ -91,9 +84,37 @@ class PictureOfTheDayFragment : Fragment() {
         initBottomSheetBehavior()
         initOptionsMenu()
         clickFab()
+        clickChips()
     }
 
+    private fun clickChips() {
+
+
+        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.today_chip1 -> {
+                    viewModel.sendServerRequest(selectedDate,onError = ::loadingError) }
+                R.id.yestrday_chip2 -> {
+                    viewModel.sendServerRequest(takeDate(-1),onError = ::loadingError)
+                }
+                R.id.befoYestrday_chip3 -> {
+                    viewModel.sendServerRequest(takeDate(-2),onError = ::loadingError)
+                }
+            }
+        }
+    }
+
+        private fun takeDate(count: Int): String {
+            val currentDate = Calendar.getInstance()
+            currentDate.add(Calendar.DAY_OF_MONTH, count)
+            val format1 = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            format1.timeZone = TimeZone.getTimeZone("EST")
+            return format1.format(currentDate.time)
+        }
+
+
     private fun loadingError(throwable: Throwable) {
+
         Toast.makeText(mContext, "не прошла загрузка $throwable", Toast.LENGTH_LONG).show()
     }
 
