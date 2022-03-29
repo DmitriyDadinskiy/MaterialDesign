@@ -93,12 +93,15 @@ class PictureOfTheDayFragment : Fragment() {
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.today_chip1 -> {
-                    viewModel.sendServerRequest(selectedDate,onError = ::loadingError) }
+                    viewModel.sendServerRequest(selectedDate,onError = ::loadingError)
+                binding.dataTextview.text = "Дата картинки "+ selectedDate}
                 R.id.yestrday_chip2 -> {
                     viewModel.sendServerRequest(takeDate(-1),onError = ::loadingError)
+                    binding.dataTextview.text = "Дата картинки "+ takeDate(-1)
                 }
                 R.id.befoYestrday_chip3 -> {
                     viewModel.sendServerRequest(takeDate(-2),onError = ::loadingError)
+                    binding.dataTextview.text = "Дата картинки "+ takeDate(-2)
                 }
             }
         }
