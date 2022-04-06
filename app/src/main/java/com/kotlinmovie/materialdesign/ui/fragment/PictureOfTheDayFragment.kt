@@ -163,12 +163,15 @@ class PictureOfTheDayFragment : Fragment() {
             }
             is PictureOfTheDayState.Success -> {
                 binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
-                binding.progressBar.visibility = ProgressBar.INVISIBLE;
+
+                binding.progressBar.visibility = ProgressBar.GONE;
 
                 binding.included.bottomSheetDescriptionHeader
                     .text = pictureOfTheDayState.serverResponseData.title
                 binding.included.bottomSheetDescription.text = pictureOfTheDayState
                     .serverResponseData.explanation
+
+
             }
         }
     }

@@ -32,7 +32,7 @@ class LayoutActivity : AppCompatActivity() {
                     startFragment(ConstraintFragment())
                 true}
                 R.id.coordinator->{
-                    TODO()
+                    startFragment(CoordinatorFragment())
                 true}
                 else -> true
 

@@ -1,0 +1,28 @@
+package com.kotlinmovie.materialdesign.ui.coordinator
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.appbar.AppBarLayout
+
+class NestedBehavior(context: Context, attr:AttributeSet): CoordinatorLayout.Behavior<View>(context,attr) {
+
+    override fun layoutDependsOn(//функция поиска зависимостей
+        parent: CoordinatorLayout,
+        child: View,
+        dependency: View
+    )=dependency is AppBarLayout//зависимость поймана и это AppBarLayout
+
+    override fun onDependentViewChanged(// изменение зависимости
+        parent: CoordinatorLayout,
+        child: View,
+        dependency: View
+    ): Boolean {
+
+        val bar = dependency as AppBarLayout
+        child.y = bar.height.toFloat()+bar.y  //изменить позицию NestedScrollView. bar.height.toFloat() - спрятать бар,bar.y -NestedScrollView не успевала за баром, догоняем
+
+        return super.onDependentViewChanged(parent, child, dependency)
+    }
+}
