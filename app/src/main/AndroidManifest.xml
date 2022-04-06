@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialDesign">
         <activity
+            android:name=".ui.coordinator.LayoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.navigation.NavigationActivity"
             android:exported="false" />
         <activity

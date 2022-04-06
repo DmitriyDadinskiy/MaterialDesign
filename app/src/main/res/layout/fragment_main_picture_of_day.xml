@@ -5,11 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        app:layoutDescription="@xml/fragment_main_picture_of_day_scene"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/data_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выберите день"
+            android:textSize="20dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/inputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
@@ -33,6 +47,42 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:chipSpacingHorizontal="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/today_chip1"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сегодня" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/yestrday_chip2"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Вчера" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/befoYestrday_chip3"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Позавчера" />
+
+
+        </com.google.android.material.chip.ChipGroup>
+
+
         <com.kotlinmovie.materialdesign.utils.EquilateralImageView
 
             android:id="@+id/image_view"
@@ -51,13 +101,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            app:indicatorSize="80dp"
             android:visibility="gone"
+            app:indicatorSize="80dp"
             app:layout_constraintBottom_toBottomOf="@+id/image_view"
             app:layout_constraintEnd_toEndOf="@+id/image_view"
             app:layout_constraintStart_toStartOf="@+id/image_view"
             app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <include
         android:id="@+id/included"

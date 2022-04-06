@@ -2,4 +2,5 @@
 <resources>
     <dimen name="title_size_theme">22sp</dimen>
     <dimen name="size_indicatorInset">16dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
 </resources>

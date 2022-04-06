@@ -7,39 +7,6 @@
     android:orientation="vertical">
 
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:chipSpacingHorizontal="35dp"
-        app:singleSelection="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/today_chip1"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="Сегодня" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/today_chip2"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Вчера" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/today_chip3"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Позавчера" />
-
-
-    </com.google.android.material.chip.ChipGroup>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,13 +44,13 @@
 
 
         </RadioGroup>
+
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/night_theme_switch1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Тёмная тема для Android 10+" />
     </LinearLayout>
-
 
 
 </LinearLayout>
