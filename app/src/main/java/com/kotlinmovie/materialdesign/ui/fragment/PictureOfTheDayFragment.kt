@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -41,6 +44,7 @@ class PictureOfTheDayFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private var isMain: Boolean = true
+
 
     private var mContext: Context? = null
     private var selectedDate = "2022-02-21"
@@ -93,13 +97,17 @@ class PictureOfTheDayFragment : Fragment() {
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.today_chip1 -> {
+                    disappearPictureOaTheDay()
                     viewModel.sendServerRequest(selectedDate,onError = ::loadingError)
+                    binding.imageView.visibility = View.INVISIBLE
                 binding.dataTextview.text = "Дата картинки "+ selectedDate}
                 R.id.yestrday_chip2 -> {
+                    disappearPictureOaTheDay()
                     viewModel.sendServerRequest(takeDate(-1),onError = ::loadingError)
                     binding.dataTextview.text = "Дата картинки "+ takeDate(-1)
                 }
                 R.id.befoYestrday_chip3 -> {
+                    disappearPictureOaTheDay()
                     viewModel.sendServerRequest(takeDate(-2),onError = ::loadingError)
                     binding.dataTextview.text = "Дата картинки "+ takeDate(-2)
                 }
@@ -119,6 +127,8 @@ class PictureOfTheDayFragment : Fragment() {
     private fun loadingError(throwable: Throwable) {
 
         Toast.makeText(mContext, "не прошла загрузка $throwable", Toast.LENGTH_LONG).show()
+        binding.progressBar.visibility = ProgressBar.INVISIBLE;
+        animationFadePictureOaTheDay()
     }
 
     private fun clickFab() {
@@ -156,6 +166,8 @@ class PictureOfTheDayFragment : Fragment() {
         when (pictureOfTheDayState) {
             is PictureOfTheDayState.Error -> {
                 Toast.makeText(mContext, "не прошла загрузка", Toast.LENGTH_LONG).show()
+                binding.progressBar.visibility = ProgressBar.INVISIBLE;
+                animationFadePictureOaTheDay()
             }
             is PictureOfTheDayState.Loading -> {
                 binding.progressBar.visibility = ProgressBar.VISIBLE;
@@ -164,16 +176,33 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayState.Success -> {
                 binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
 
-                binding.progressBar.visibility = ProgressBar.GONE;
+                animationFadePictureOaTheDay()
 
                 binding.included.bottomSheetDescriptionHeader
                     .text = pictureOfTheDayState.serverResponseData.title
                 binding.included.bottomSheetDescription.text = pictureOfTheDayState
                     .serverResponseData.explanation
-
-
+                binding.progressBar.visibility = ProgressBar.INVISIBLE;
             }
         }
+
+    }
+    private fun animationFadePictureOaTheDay(){
+        val transition = TransitionSet()
+        val fade = Fade()
+        fade.duration = 5000
+        transition.addTransition(fade)
+        TransitionManager.beginDelayedTransition(binding.transitionsContainer, transition)
+        binding.imageView.visibility =  View.VISIBLE
+    }
+
+    private fun disappearPictureOaTheDay(){
+        val transition = TransitionSet()
+        val fade = Fade()
+        fade.duration = 2000
+        transition.addTransition(fade)
+        TransitionManager.beginDelayedTransition(binding.transitionsContainer, transition)
+        binding.imageView.visibility =  View.INVISIBLE
     }
 
     private fun initBottomSheetBehavior() {
