@@ -53,6 +53,11 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     startActivity(Intent(requireContext(),LayoutActivity ::class.java))
 
                 }
+                R.id.animation_rotate_fab ->{
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, AnimationRotateFabFragment.newInstance()).addToBackStack("")
+                        .commit()
+                }
             }
             dismiss()
             true

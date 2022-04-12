@@ -13,6 +13,10 @@
             android:id="@+id/navigation_layout"
             android:icon="@drawable/ic_send"
             android:title="LayoutActivity" />
+        <item
+            android:id="@+id/animation_rotate_fab"
+            android:icon="@drawable/ic_send"
+            android:title="Animation rotate fab" />
     </group>
 
 </menu>
