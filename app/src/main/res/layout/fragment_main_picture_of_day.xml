@@ -5,12 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/constraintContainer">
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/TextviewConstraintSet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+
+        app:layout_constraintVertical_bias="0.02"
+
+        app:layout_constraintBottom_toTopOf="@+id/main"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintStart_toStartOf="@+id/main" />
+
     <androidx.constraintlayout.motion.widget.MotionLayout
-        app:layoutDescription="@xml/fragment_main_picture_of_day_scene"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:padding="10dp"
+        app:layoutDescription="@xml/fragment_main_picture_of_day_scene">
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/data_textview"
@@ -35,7 +53,7 @@
             app:endIconDrawable="@drawable/ic_wikipedia"
             app:endIconMode="custom"
             app:helperText="@string/wiki_helper_text"
-            app:layout_constraintBottom_toTopOf="@+id/image_view"
+            app:layout_constraintBottom_toTopOf="@+id/transitions_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:startIconContentDescription="@string/imageDesc"
@@ -55,7 +73,7 @@
             app:chipSpacingHorizontal="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/transitions_container"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -82,34 +100,48 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-
-        <com.kotlinmovie.materialdesign.utils.EquilateralImageView
-
-            android:id="@+id/image_view"
+        <LinearLayout
+            android:id="@+id/transitions_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@string/photo_of_the_day_stub"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_no_photo_vector" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.kotlinmovie.materialdesign.utils.EquilateralImageView
+
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/photo_of_the_day_stub"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/transitions_container"
+                app:layout_constraintEnd_toEndOf="@+id/transitions_container"
+                app:layout_constraintStart_toStartOf="@+id/transitions_container"
+                app:layout_constraintTop_toTopOf="@+id/transitions_container"
+                app:srcCompat="@drawable/ic_no_photo_vector" />
+
+        </LinearLayout>
+
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:indicatorSize="80dp"
-            app:layout_constraintBottom_toBottomOf="@+id/image_view"
-            app:layout_constraintEnd_toEndOf="@+id/image_view"
-            app:layout_constraintStart_toStartOf="@+id/image_view"
+            app:layout_constraintBottom_toBottomOf="@+id/transitions_container"
+            app:layout_constraintEnd_toEndOf="@+id/transitions_container"
+            app:layout_constraintStart_toStartOf="@+id/transitions_container"
             app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
 
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
     <include
         android:id="@+id/included"
         layout="@layout/bottom_sheet_layout" />

@@ -42,18 +42,24 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             when (it.itemId) {
                 R.id.navigation_earth -> {
                     startActivity(Intent(requireContext(),BottomNavigationViewActivity::class.java))
-                    dismiss()
+
                 }
                 R.id.navigation_pager -> {
                     startActivity(Intent(requireContext(),NavigationActivity::class.java))
 
-                    dismiss()
+
                 }
                 R.id.navigation_layout -> {
                     startActivity(Intent(requireContext(),LayoutActivity ::class.java))
-                    dismiss()
+
+                }
+                R.id.animation_rotate_fab ->{
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, AnimationRotateFabFragment.newInstance()).addToBackStack("")
+                        .commit()
                 }
             }
+            dismiss()
             true
         }
     }
