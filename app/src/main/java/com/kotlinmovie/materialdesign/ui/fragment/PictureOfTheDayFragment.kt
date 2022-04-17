@@ -160,7 +160,7 @@ class PictureOfTheDayFragment : Fragment() {
         binding.progressBar.visibility = ProgressBar.INVISIBLE;
 
         animationFadePictureOfTheDay()
-        binding.TextviewConstraintSet.text = selectedDate
+        binding.TextviewConstraintSet.text = "ошибка загрузки"
         constraintSetAnimationEnd()
     }
 
