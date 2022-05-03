@@ -204,7 +204,7 @@ class PictureOfTheDayFragment : Fragment() {
                 constraintSetAnimationEnd()
             }
             is PictureOfTheDayState.Loading -> {
-//                binding.progressBar.visibility = ProgressBar.VISIBLE;
+//                binding.progressBar.visibility = ProgressBar.VISIBLE; // код работает.
 
             }
             is PictureOfTheDayState.Success -> {
@@ -253,11 +253,9 @@ class PictureOfTheDayFragment : Fragment() {
         TransitionManager.beginDelayedTransition(binding.constraintContainer, changeBounds)
         constraintSet.connect(R.id.TextviewConstraintSet, ConstraintSet.BOTTOM, R.id.main,
             ConstraintSet.TOP)
-        constraintSet.connect(R.id.TextviewConstraintSet, ConstraintSet.END, R.id.main,
-            ConstraintSet.END)
-        constraintSet.connect(R.id.TextviewConstraintSet, ConstraintSet.START, R.id.main,
-            ConstraintSet.START)
-//        constraintSet.setVerticalBias(R.id.TextviewConstraintSet,0.02f)
+
+        constraintSet.clear(R.id.TextviewConstraintSet, ConstraintSet.TOP)//отвязать TOP, он никуда не делся
+
         constraintSet.applyTo(binding.constraintContainer)
     }
 

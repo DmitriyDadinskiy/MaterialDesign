@@ -17,6 +17,10 @@
             android:id="@+id/animation_rotate_fab"
             android:icon="@drawable/ic_send"
             android:title="Animation rotate fab" />
+        <item
+            android:id="@+id/recycler"
+            android:icon="@drawable/ic_send"
+            android:title="@string/recyclerview" />
     </group>
 
 </menu>

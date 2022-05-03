@@ -12,8 +12,8 @@ import com.kotlinmovie.materialdesign.databinding.FragmentAnimationRotateFabBind
 
 
 class AnimationRotateFabFragment : Fragment() {
-    private val duration = 3000L
-    private val duration2 = 4000L
+    private val durationStartY = 1500L
+    private val durationBase = 2500L
     private var flag = false
 
     private var _binding: FragmentAnimationRotateFabBinding? = null
@@ -44,20 +44,20 @@ class AnimationRotateFabFragment : Fragment() {
             flag = !flag
             if (flag) {
                 ObjectAnimator.ofFloat(binding.plusImageview, View.ROTATION, 0f, 405F)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
                 ObjectAnimator.ofFloat(binding.oneContainer, View.TRANSLATION_Y, -50f, -260f)
-                    .setDuration(duration).start()
+                    .setDuration(durationStartY).start()
                 ObjectAnimator.ofFloat(binding.twoContainer, View.TRANSLATION_Y, -20f, -130f)
-                    .setDuration(duration).start()
+                    .setDuration(durationStartY).start()
 
                 ObjectAnimator.ofFloat(binding.oneContainer, View.TRANSLATION_X, 330f, 0f)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
                 ObjectAnimator.ofFloat(binding.twoContainer, View.TRANSLATION_X, 330f, 0f)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
 
                 binding.oneContainer.animate()
                     .alpha(1f)
-                    .setDuration(duration )
+                    .setDuration(durationStartY )
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             super.onAnimationEnd(animation)
@@ -66,7 +66,7 @@ class AnimationRotateFabFragment : Fragment() {
                     })
                 binding.twoContainer.animate()
                     .alpha(1f)
-                    .setDuration(duration )
+                    .setDuration(durationStartY )
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             super.onAnimationEnd(animation)
@@ -75,25 +75,25 @@ class AnimationRotateFabFragment : Fragment() {
                     })
                 binding.transparentBackground.animate()
                     .alpha(0.5f)
-                    .duration = duration
+                    .duration = durationStartY
             } else {
                 ObjectAnimator.ofFloat(binding.plusImageview, View.ROTATION, 405f, 0f)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
                                 ObjectAnimator.ofFloat(binding.oneContainer, View.TRANSLATION_Y, -260f, -50f)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
                 ObjectAnimator.ofFloat(binding.twoContainer, View.TRANSLATION_Y, -130f, -20f)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
 
                 ObjectAnimator.ofFloat(binding.oneContainer, View.TRANSLATION_X, 0f, 330f)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
                 ObjectAnimator.ofFloat(binding.twoContainer, View.TRANSLATION_X, 0f, 330f)
-                    .setDuration(duration2).start()
+                    .setDuration(durationBase).start()
 
 
 
                 binding.oneContainer.animate()
                     .alpha(0f)
-                    .setDuration(duration2 )
+                    .setDuration(durationBase )
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             super.onAnimationEnd(animation)
@@ -102,7 +102,7 @@ class AnimationRotateFabFragment : Fragment() {
                     })
                 binding.twoContainer.animate()
                     .alpha(0f)
-                    .setDuration(duration2 )
+                    .setDuration(durationBase )
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             super.onAnimationEnd(animation)
@@ -111,7 +111,7 @@ class AnimationRotateFabFragment : Fragment() {
                     })
                 binding.transparentBackground.animate()
                     .alpha(0f)
-                    .setDuration(duration)
+                    .setDuration(durationStartY)
             }
 
         }
