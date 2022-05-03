@@ -70,6 +70,12 @@ class RecyclerViewFragmentAdapter(
 
     private fun generateMars() = Pair(RecyclerData("Марс", type = TYPE_MARS), false)
 
+    fun addEarth(){
+        listData.add(generateEarth())
+        notifyItemInserted(listData.size-2)
+    }
+    private fun generateEarth() = Pair(RecyclerData("Земля", type = TYPE_EARTH), false)
+
     abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         abstract fun bind(data: Pair<RecyclerData, Boolean>)
     }
@@ -121,7 +127,7 @@ class RecyclerViewFragmentAdapter(
                     if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN){
                         onStartDragListener.OnStartDrag(this@MarsViewHolder)
                     }
-                    return@setOnTouchListener false
+                    false
                 }
             }
         }
@@ -148,14 +154,38 @@ class RecyclerViewFragmentAdapter(
     }
 
 
-    inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
+    inner class EarthViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(data: Pair<RecyclerData, Boolean>) {
             RecyclerItemEarthBinding.bind(itemView).apply {
                 tvNameEarth.text = data.first.name
                 ivEarth.setOnClickListener {
                     onClickItemListener.onItemClick(data.first)
                 }
+                dragHandleImageViewEarth.setOnTouchListener { v, event ->
+
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN){
+                        onStartDragListener.OnStartDrag(this@EarthViewHolder)
+                    }
+                    false
+                }
+                earthDescriptionTextView.visibility = if (listData[layoutPosition].second)
+                    View.VISIBLE else View.GONE
+                itemView.setOnClickListener {
+                    listData[layoutPosition] = listData[layoutPosition].let {
+                        it.first to !it.second
+                    }
+                    notifyItemChanged(layoutPosition)
+                }
             }
+        }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.GRAY)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
         }
     }
 

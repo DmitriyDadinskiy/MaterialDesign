@@ -2,12 +2,12 @@
     <string name="app_name">MaterialDesign</string>
 
     <string name="photo_of_the_day_stub">Photo of the day</string>
-    <string name="search_wiki">Найти в Википедии</string>
-    <string name="wiki_helper_text">Поищите термин в википедии</string>
+    <string name="search_wiki" translatable="false">Найти в Википедии</string>
+    <string name="wiki_helper_text" translatable="false">Поищите термин в википедии</string>
     <string name="favourite">favourite</string>
     <string name="settings">settings</string>
     <string name="search">Search</string>
-    <string name="imageDesc">Картинка</string>
+    <string name="imageDesc" translatable="false">Картинка</string>
     <string name="text_theme_LightGreen">Светло-зеленная</string>
     <string name="photo_of_the_day_mars">photo_of_the_day_mars</string>
 
@@ -101,8 +101,13 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="recyclerview">RecyclerView</string>
-    <string name="earth">Земля</string>
-    <string name="mars">Марс</string>
-    <string name="title">Заголовок</string>
-    <string name="description_Mars">Марс -- четвёртая по удалённости от Солнца и седьмая по размерам планета Солнечной системы. Названа в честь Марса -- древнеримского бога войны, соответствующего древнегреческому Аресу. Иногда Марс называют «красной планетой» из-за красноватого оттенка поверхности, придаваемого ей минералом маггемитом (оксидом железа).</string>
+    <string name="earth" translatable="false">Земля</string>
+    <string name="mars" translatable="false">Марс</string>
+    <string name="title" translatable="false">Заголовок</string>
+    <string name="description_Mars" translatable="false">"Марс — четвёртая по удалённости от Солнца и седьмая по"
+        "размерам планета Солнечной системы. Названа в честь Марса — древнеримского бога войны, "
+        "соответствующего древнегреческому Аресу. Иногда Марс называют «красной планетой» из-за "
+        "красноватого оттенка поверхности, придаваемого ей минералом маггемитом (оксидом железа)."
+    </string>
+    <string name="EarthDescription" translatable="false">Что вы увидели сегодня?</string>
 </resources>
