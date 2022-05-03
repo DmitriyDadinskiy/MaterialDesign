@@ -2,6 +2,7 @@ package com.kotlinmovie.materialdesign.ui.recyclerView
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -90,20 +91,22 @@ class RecyclerViewFragmentAdapter(
                     notifyItemRemoved(layoutPosition)
                 }
                 moveItemUp.setOnClickListener {
-
+                    if (layoutPosition == 1) {
+                    } else {
                         listData.removeAt(layoutPosition).apply {
                             listData.add(layoutPosition - 1, this)
                         }
                         notifyItemMoved(layoutPosition, layoutPosition - 1)
-
+                    }
                 }
                 moveItemDown.setOnClickListener {
 
-                       listData.removeAt(layoutPosition).apply {
-                           listData.add(layoutPosition + 1, this)
-                       }
-                       notifyItemMoved(layoutPosition, layoutPosition + 1)
-
+                    if (layoutPosition == itemCount-1) else {
+                        listData.removeAt(layoutPosition).apply {
+                            listData.add(layoutPosition + 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition + 1)
+                    }
                 }
                 marsDescriptionTextView.visibility = if (listData[layoutPosition].second)
                     View.VISIBLE else View.GONE

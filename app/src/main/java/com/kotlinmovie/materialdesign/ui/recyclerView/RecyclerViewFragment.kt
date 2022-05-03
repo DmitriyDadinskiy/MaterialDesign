@@ -112,7 +112,13 @@ class RecyclerViewFragment : Fragment() {
             target: RecyclerView.ViewHolder
         ): Boolean {
             //передача событие перемещения
-           recyclerViewFragmentAdapter.onItemMove(viewHolder.adapterPosition,target.adapterPosition)
+            if (viewHolder.adapterPosition == 0 || target.adapterPosition == 0) {
+            } else {
+                recyclerViewFragmentAdapter.onItemMove(
+                    viewHolder.adapterPosition,
+                    target.adapterPosition
+                )
+            }
             return true
         }
 
