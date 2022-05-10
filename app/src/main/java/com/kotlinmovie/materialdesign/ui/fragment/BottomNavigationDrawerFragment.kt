@@ -13,6 +13,7 @@ import com.kotlinmovie.materialdesign.databinding.BottomNavigationLayoutBinding
 import com.kotlinmovie.materialdesign.ui.coordinator.LayoutActivity
 import com.kotlinmovie.materialdesign.ui.navigation.BottomNavigationViewActivity
 import com.kotlinmovie.materialdesign.ui.navigation.NavigationActivity
+import com.kotlinmovie.materialdesign.ui.recyclerView.RecyclerViewFragment
 
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -56,6 +57,11 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.animation_rotate_fab ->{
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.container, AnimationRotateFabFragment.newInstance()).addToBackStack("")
+                        .commit()
+                }
+                R.id.recycler ->{
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, RecyclerViewFragment.newInstance()).addToBackStack("")
                         .commit()
                 }
             }
