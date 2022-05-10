@@ -2,8 +2,17 @@ package com.kotlinmovie.materialdesign.ui.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.service.autofill.OnClickAction
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.method.LinkMovementMethod
+import android.text.style.*
 import android.view.*
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ProgressBar
@@ -11,6 +20,8 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.*
@@ -22,7 +33,6 @@ import com.kotlinmovie.materialdesign.databinding.FragmentMainPictureOfDayBindin
 import com.kotlinmovie.materialdesign.ui.MainActivity
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
-import kotlinx.coroutines.NonDisposableHandle.parent
 import org.chromium.base.ThreadUtils.runOnUiThread
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -93,7 +103,26 @@ class PictureOfTheDayFragment : Fragment() {
         initOptionsMenu()
         clickFab()
         clickChips()
+        createFont()
     }
+
+
+
+    private fun createFont() {
+
+            val request = FontRequest(
+                "com.google.android.gms.fonts",
+                "com.google.android.gms",
+                "Source Serif Pro",
+                R.array.com_google_android_gms_fonts_certs)
+            val callback = object : FontsContractCompat.FontRequestCallback(){
+                override fun onTypefaceRetrieved(typeface: Typeface?) {
+                    binding.included.bottomSheetDescription.typeface = typeface
+                    super.onTypefaceRetrieved(typeface)
+                }
+            }
+            FontsContractCompat.requestFont(requireContext(),request,callback, Handler(Looper.myLooper()!!))
+        }
 
     private fun clickChips() {
 
@@ -199,28 +228,59 @@ class PictureOfTheDayFragment : Fragment() {
         when (pictureOfTheDayState) {
             is PictureOfTheDayState.Error -> {
                 Toast.makeText(mContext, "не прошла загрузка", Toast.LENGTH_LONG).show()
-                binding.progressBar.visibility = ProgressBar.INVISIBLE;
+                binding.progressBar.visibility = ProgressBar.INVISIBLE
                 animationFadePictureOfTheDay()
                 constraintSetAnimationEnd()
             }
             is PictureOfTheDayState.Loading -> {
-//                binding.progressBar.visibility = ProgressBar.VISIBLE; // код работает.
-
+                binding.progressBar.visibility = ProgressBar.VISIBLE
             }
             is PictureOfTheDayState.Success -> {
                 binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
-
                 animationFadePictureOfTheDay()
                 constraintSetAnimationEnd()
 
-                binding.included.bottomSheetDescriptionHeader
-                    .text = pictureOfTheDayState.serverResponseData.title
-                binding.included.bottomSheetDescription.text = pictureOfTheDayState
-                    .serverResponseData.explanation
-                binding.progressBar.visibility = ProgressBar.INVISIBLE;// не пойму почему не отрабатывает код
+                val spannable =
+                    SpannableStringBuilder(pictureOfTheDayState.serverResponseData.explanation)
+                spannable.insert(0, getString(R.string.descritpion_start))
+                spannable.setSpan(
+                    BackgroundColorSpan(
+                        ContextCompat
+                            .getColor(requireContext(), R.color.teal_700)), 0, 20,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannable.indices.forEach {
+                    if (spannable[it] == 'o') {
+                        spannable.setSpan(
+                            ImageSpan(requireContext(), R.drawable.ic_mars),
+                            it,
+                            it + 1,
+                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                }
+                spannable.setSpan(
+                    UnderlineSpan(), 0,
+                    pictureOfTheDayState.serverResponseData.explanation.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                binding.included.bottomSheetDescription.text = spannable
+
+                val spannableHeader =
+                    SpannableStringBuilder(pictureOfTheDayState.serverResponseData.title)
+                val clickableSpan = object : ClickableSpan() {
+                    override fun onClick(p0: View) {
+                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                        Toast.makeText(requireContext(), getString(R.string.clickTextSpan),
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+                spannableHeader.setSpan(
+                    clickableSpan, 0,
+                    pictureOfTheDayState.serverResponseData.title.length, 0)
+                binding.included.bottomSheetDescriptionHeader.movementMethod =
+                    LinkMovementMethod.getInstance()
+                binding.included.bottomSheetDescriptionHeader.text = spannableHeader
+
             }
         }
-
     }
 
     private fun constraintSetAnimationEnd() {
@@ -267,6 +327,8 @@ class PictureOfTheDayFragment : Fragment() {
         transition.addTransition(fade)
         TransitionManager.beginDelayedTransition(binding.transitionsContainer, transition)
         binding.imageView.visibility = View.VISIBLE
+
+
     }
 
     private fun disappearPictureOfTheDay() {
@@ -276,6 +338,7 @@ class PictureOfTheDayFragment : Fragment() {
         transition.addTransition(fade)
         TransitionManager.beginDelayedTransition(binding.transitionsContainer, transition)
         binding.imageView.visibility = View.INVISIBLE
+        binding.progressBar.visibility = ProgressBar.INVISIBLE;
     }
 
     private fun initBottomSheetBehavior() {
