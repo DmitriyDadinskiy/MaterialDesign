@@ -110,6 +110,7 @@
         "красноватого оттенка поверхности, придаваемого ей минералом маггемитом (оксидом железа)."
     </string>
     <string name="EarthDescription" translatable="false">Что вы увидели сегодня?</string>
-    <string name="descritpion_start"><![CDATA[Описание картинки-->]]></string>
+    <string name="descritpion_start"><![CDATA[Описание картинки—>]]></string>
     <string name="clickTextSpan">Click text Span</string>
+    <string name="DateImages">Дата картинки</string>
 </resources>
