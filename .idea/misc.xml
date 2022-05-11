@@ -21,12 +21,13 @@
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_send.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_settings_menu.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/ic_wikipedia.xml" value="0.1" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/drawable/splash_background_drawable.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/font/font.xml" value="0.27870370370370373" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/font/roboto_bold.xml" value="0.3257802479692176" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/font/source_serif_pro.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_bottom_navigation_view.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_layout.xml" value="0.33" />
-        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/activity_navigation.xml" value="0.35279187817258884" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.25" />
@@ -41,6 +42,7 @@
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_recycler_view.xml" value="0.25" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_solar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/fragment_system.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/recycler_item_earth.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/dim19/AndroidStudioProjects/MaterialDesign/app/src/main/res/layout/recycler_item_header.xml" value="0.3009833262077811" />

@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import coil.api.load
+import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.kotlinmovie.materialdesign.databinding.FragmenSputnikBinding
-import com.kotlinmovie.materialdesign.databinding.FragmentSolarBinding
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
 import com.kotlinmovie.materialdesign.viewModel.PictureState
 import java.text.DateFormat
@@ -49,7 +48,7 @@ class FragmentSputnik : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmenSputnikBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -77,14 +76,15 @@ class FragmentSputnik : Fragment() {
 
             }
             is PictureState.Loading -> {
-                binding.progressBarSputnik.visibility = ProgressBar.VISIBLE;
+                binding.progressBarSputnik.visibility = ProgressBar.VISIBLE
             }
             is PictureState.SuccessSputnik -> {
 
                 binding.sputnikImageView.load(pictureState.serverResponseDataSputnik.url)
 
-                binding.progressBarSputnik.visibility = ProgressBar.GONE;
+                binding.progressBarSputnik.visibility = ProgressBar.GONE
             }
+            else -> {}
         }
 
     }

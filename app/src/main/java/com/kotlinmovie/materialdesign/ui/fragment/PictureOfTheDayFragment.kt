@@ -1,5 +1,6 @@
 package com.kotlinmovie.materialdesign.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
@@ -7,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.service.autofill.OnClickAction
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -25,7 +25,7 @@ import androidx.core.provider.FontsContractCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.*
-import coil.api.load
+import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kotlinmovie.materialdesign.R
@@ -78,7 +78,7 @@ class PictureOfTheDayFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mContext = context
         _binding = FragmentMainPictureOfDayBinding.inflate(inflater, container, false)
         return binding.root
@@ -124,18 +124,17 @@ class PictureOfTheDayFragment : Fragment() {
             FontsContractCompat.requestFont(requireContext(),request,callback, Handler(Looper.myLooper()!!))
         }
 
-    private fun clickChips() {
-
-
-        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.today_chip1 -> {
+    @SuppressLint("SetTextI18n")
+    private fun clickChips() = @Suppress("DEPRECATION")
+    binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+        when (checkedId) {
+            R.id.today_chip1 -> {
 
                     constraintSetAnimationStart()
                     disappearPictureOfTheDay()
                     viewModel.sendServerRequest(selectedDate, onError = ::loadingError)
                     binding.imageView.visibility = View.INVISIBLE
-                    binding.dataTextview.text = "Дата картинки " + selectedDate
+                    binding.dataTextview.text = getString(R.string.DateImages)  + selectedDate
                    Thread {
                        Thread.sleep(durationSet )
                        runOnUiThread {
@@ -148,7 +147,7 @@ class PictureOfTheDayFragment : Fragment() {
                     constraintSetAnimationStart()
                     disappearPictureOfTheDay()
                     viewModel.sendServerRequest(takeDate(-1), onError = ::loadingError)
-                    binding.dataTextview.text = "Дата картинки " + takeDate(-1)
+                    binding.dataTextview.text = getString(R.string.DateImages) + takeDate(-1)
                     Thread {
                         Thread.sleep(durationSet )
                         runOnUiThread {
@@ -156,20 +155,19 @@ class PictureOfTheDayFragment : Fragment() {
                         }
                     }.start()
 
-                }
-                R.id.befoYestrday_chip3 -> {
+            }
+            R.id.befoYestrday_chip3 -> {
 
-                    constraintSetAnimationStart()
-                    disappearPictureOfTheDay()
-                    viewModel.sendServerRequest(takeDate(-2), onError = ::loadingError)
-                    binding.dataTextview.text = "Дата картинки " + takeDate(-2)
-                    Thread {
-                        Thread.sleep(durationSet)
-                        runOnUiThread {
-                            binding.TextviewConstraintSet.text = takeDate(-2)
-                        }
-                    }.start()
-                }
+                constraintSetAnimationStart()
+                disappearPictureOfTheDay()
+                viewModel.sendServerRequest(takeDate(-2), onError = ::loadingError)
+                binding.dataTextview.text = getString(R.string.DateImages)  + takeDate(-2)
+                Thread {
+                    Thread.sleep(durationSet)
+                    runOnUiThread {
+                        binding.TextviewConstraintSet.text = takeDate(-2)
+                    }
+                }.start()
             }
         }
     }
@@ -186,7 +184,7 @@ class PictureOfTheDayFragment : Fragment() {
     private fun loadingError(throwable: Throwable) {
 
         Toast.makeText(mContext, "не прошла загрузка $throwable", Toast.LENGTH_LONG).show()
-        binding.progressBar.visibility = ProgressBar.INVISIBLE;
+        binding.progressBar.visibility = ProgressBar.INVISIBLE
 
         animationFadePictureOfTheDay()
         binding.TextviewConstraintSet.text = "ошибка загрузки"
@@ -338,7 +336,7 @@ class PictureOfTheDayFragment : Fragment() {
         transition.addTransition(fade)
         TransitionManager.beginDelayedTransition(binding.transitionsContainer, transition)
         binding.imageView.visibility = View.INVISIBLE
-        binding.progressBar.visibility = ProgressBar.INVISIBLE;
+        binding.progressBar.visibility = ProgressBar.INVISIBLE
     }
 
     private fun initBottomSheetBehavior() {
@@ -351,7 +349,7 @@ class PictureOfTheDayFragment : Fragment() {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(
                     "https://en.wikipedia.org/wiki/" +
-                            "${binding.inputEditText.text.toString()}"
+                            binding.inputEditText.text.toString()
                 )
             })
         }

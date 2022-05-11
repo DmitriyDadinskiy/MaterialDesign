@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kotlinmovie.materialdesign.R
 import com.kotlinmovie.materialdesign.ui.fragment.PictureOfTheDayFragment
+import com.kotlinmovie.materialdesign.ui.fragment.SplashFragment
 
 
 const val LightGreen = 1
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, PictureOfTheDayFragment.newInstance()).commit()
+            .replace(R.id.container, SplashFragment.newInstance()).commit()
     }
 
     fun setCurrentTheme(currentTheme: Int) {

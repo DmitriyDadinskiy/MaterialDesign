@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.ProgressBar.INVISIBLE
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import coil.api.load
+import coil.load
 import com.kotlinmovie.materialdesign.BuildConfig
 import com.kotlinmovie.materialdesign.databinding.FragmentEarthBinding
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
@@ -28,7 +29,7 @@ class FragmentEarth:Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentEarthBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -45,7 +46,7 @@ class FragmentEarth:Fragment() {
                 Toast.makeText(requireContext(), "не прошла загрузка", Toast.LENGTH_LONG).show()
             }
             is PictureState.Loading->{
-                binding.progressBarEarth.visibility = ProgressBar.VISIBLE;
+                binding.progressBarEarth.visibility = ProgressBar.VISIBLE
             }
             is PictureState.SuccessEarthEpic ->{
                 val strDate = pictureState.serverResponseData.last().date.split(" ").first()
@@ -53,12 +54,13 @@ class FragmentEarth:Fragment() {
                 val url = "https://api.nasa.gov/EPIC/archive/natural/" +
                         strDate.replace("-","/",true) +
                         "/png/" +
-                        "$image" +
+                        image +
                         ".png?api_key=${BuildConfig.NASA_API_KEY}"
                 binding.earthView.load(url)
 
-                binding.progressBarEarth.visibility = ProgressBar.INVISIBLE;
+                binding.progressBarEarth.visibility = INVISIBLE
             }
+            else -> {}
         }
 
     }
