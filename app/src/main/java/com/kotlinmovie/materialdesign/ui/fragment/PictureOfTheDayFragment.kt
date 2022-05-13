@@ -3,6 +3,7 @@ package com.kotlinmovie.materialdesign.ui.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -34,12 +35,20 @@ import com.kotlinmovie.materialdesign.ui.MainActivity
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
 import org.chromium.base.ThreadUtils.runOnUiThread
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+private const val SHARE_PREF_TUTORIAL = "SHARE_PREF_TUTORIAL"
 class PictureOfTheDayFragment : Fragment() {
 
+    private val preferences: SharedPreferences by lazy {
+        this.requireActivity().getSharedPreferences(
+            SHARE_PREF_TUTORIAL, Context.MODE_PRIVATE
+        )}
     private var _binding: FragmentMainPictureOfDayBinding? = null
     private val binding: FragmentMainPictureOfDayBinding
         get() = _binding!!
@@ -77,7 +86,7 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         mContext = context
         _binding = FragmentMainPictureOfDayBinding.inflate(inflater, container, false)
@@ -90,6 +99,7 @@ class PictureOfTheDayFragment : Fragment() {
         iniViewModel()
         super.onViewCreated(view, savedInstanceState)
         init()
+
     }
 
     private fun iniViewModel() {
@@ -104,8 +114,28 @@ class PictureOfTheDayFragment : Fragment() {
         clickFab()
         clickChips()
         createFont()
+        startTutorials()
     }
 
+    private fun startTutorials() {
+        val hasVisited: Boolean = preferences.getBoolean(SHARE_PREF_TUTORIAL, false)
+        if (!hasVisited){
+        val builder = GuideView.Builder(requireContext())
+            .setTitle(getString(R.string.title_tutorial))
+            .setContentText(getString(R.string.discription_tutorial))
+            .setGravity(Gravity.center)
+            .setDismissType(DismissType.anywhere)
+            .setTargetView(binding.chipGroup)
+            .setDismissType(DismissType.anywhere)
+            .setGuideListener {
+                preferences.edit().let {
+                    it.putBoolean(SHARE_PREF_TUTORIAL, true)
+                    it.apply()
+                }
+            }
+        builder.build().show()
+
+    }}
 
 
     private fun createFont() {
