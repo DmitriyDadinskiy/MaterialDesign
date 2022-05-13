@@ -23,7 +23,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.*
 import coil.load
@@ -43,15 +42,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 private const val SHARE_PREF_TUTORIAL = "SHARE_PREF_TUTORIAL"
-class PictureOfTheDayFragment : Fragment() {
+class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBinding>(FragmentMainPictureOfDayBinding::inflate) {
 
     private val preferences: SharedPreferences by lazy {
         this.requireActivity().getSharedPreferences(
             SHARE_PREF_TUTORIAL, Context.MODE_PRIVATE
         )}
-    private var _binding: FragmentMainPictureOfDayBinding? = null
-    private val binding: FragmentMainPictureOfDayBinding
-        get() = _binding!!
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
@@ -86,12 +82,10 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+        savedInstanceState: Bundle?
+    ): View? {
         mContext = context
-        _binding = FragmentMainPictureOfDayBinding.inflate(inflater, container, false)
-        return binding.root
-
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -412,8 +406,4 @@ class PictureOfTheDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }
