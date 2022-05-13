@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import coil.api.load
+import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.kotlinmovie.materialdesign.databinding.FragmentMarsBinding
 import com.kotlinmovie.materialdesign.viewModel.PictureState
@@ -41,7 +41,7 @@ class FragmentMars: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMarsBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -64,7 +64,7 @@ class FragmentMars: Fragment() {
                 Toast.makeText(requireContext(), "не прошла загрузка", Toast.LENGTH_LONG).show()
             }
             is PictureState.Loading -> {
-                binding.progressBarMars.visibility = ProgressBar.VISIBLE;
+                binding.progressBarMars.visibility = ProgressBar.VISIBLE
 
             }
             is PictureState.SuccessMars -> {
@@ -75,9 +75,10 @@ class FragmentMars: Fragment() {
                 }else{
                     binding.marsImagesView.load(pictureState.serverResponseDataMars.photos.first().imgSrc) //почему-то марс не загружает картинку, хотя с сервера она приходит
                 }
-                binding.progressBarMars.visibility = ProgressBar.INVISIBLE;
+                binding.progressBarMars.visibility = ProgressBar.INVISIBLE
 
             }
+            else -> {}
         }
     }
 

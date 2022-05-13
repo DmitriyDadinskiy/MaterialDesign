@@ -1,6 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.MaterialDesign" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="MaterialDesign" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <item name="colorPrimary">?ollColor_600</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -44,5 +44,11 @@
         <item name="shapeAppearance">?shapeAppearanceMediumComponent</item>
     </style>
 
-
+    <style name="MySplashTheme" parent="MaterialDesign">
+        <item name="ollColor_100">#cfd8dc</item>
+        <item name="ollColor_200">#b0bec5</item>
+        <item name="ollColor_600">#546e7a</item>
+        <item name="ollColor_900">#263238</item>
+        <item name="android:windowBackground">@drawable/splash_background_drawable</item>
+    </style>
 </resources>

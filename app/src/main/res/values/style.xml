@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MyLightGreen" perent="Theme.MaterialDesign">
+    <style name="MyLightGreen" parent="MaterialDesign">
         <item name="ollColor_100">#dcedc8</item>
         <item name="ollColor_200">#c5e1a5</item>
         <item name="ollColor_600">#7cb342</item>
@@ -11,7 +11,7 @@
 
     </style>
 
-    <style name="MyCyan" perent="Theme.MaterialDesign">
+    <style name="MyCyan" parent="MaterialDesign">
         <item name="ollColor_100">#b2ebf2</item>
         <item name="ollColor_200">#80deea</item>
         <item name="ollColor_600">#00acc1</item>
@@ -20,7 +20,7 @@
 
     </style>
 
-    <style name="MyBlueGrey" perent="Theme.MaterialDesign">
+    <style name="MyBlueGrey" parent="MaterialDesign">
         <item name="ollColor_100">#cfd8dc</item>
         <item name="ollColor_200">#b0bec5</item>
         <item name="ollColor_600">#546e7a</item>

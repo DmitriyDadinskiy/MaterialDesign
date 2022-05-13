@@ -1,13 +1,14 @@
 package com.kotlinmovie.materialdesign.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.service.autofill.OnClickAction
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -22,10 +23,9 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.*
-import coil.api.load
+import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kotlinmovie.materialdesign.R
@@ -34,15 +34,20 @@ import com.kotlinmovie.materialdesign.ui.MainActivity
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
 import org.chromium.base.ThreadUtils.runOnUiThread
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PictureOfTheDayFragment : Fragment() {
+private const val SHARE_PREF_TUTORIAL = "SHARE_PREF_TUTORIAL"
+class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBinding>(FragmentMainPictureOfDayBinding::inflate) {
 
-    private var _binding: FragmentMainPictureOfDayBinding? = null
-    private val binding: FragmentMainPictureOfDayBinding
-        get() = _binding!!
+    private val preferences: SharedPreferences by lazy {
+        this.requireActivity().getSharedPreferences(
+            SHARE_PREF_TUTORIAL, Context.MODE_PRIVATE
+        )}
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
@@ -80,9 +85,7 @@ class PictureOfTheDayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mContext = context
-        _binding = FragmentMainPictureOfDayBinding.inflate(inflater, container, false)
-        return binding.root
-
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,6 +93,7 @@ class PictureOfTheDayFragment : Fragment() {
         iniViewModel()
         super.onViewCreated(view, savedInstanceState)
         init()
+
     }
 
     private fun iniViewModel() {
@@ -104,8 +108,28 @@ class PictureOfTheDayFragment : Fragment() {
         clickFab()
         clickChips()
         createFont()
+        startTutorials()
     }
 
+    private fun startTutorials() {
+        val hasVisited: Boolean = preferences.getBoolean(SHARE_PREF_TUTORIAL, false)
+        if (!hasVisited){
+        val builder = GuideView.Builder(requireContext())
+            .setTitle(getString(R.string.title_tutorial))
+            .setContentText(getString(R.string.discription_tutorial))
+            .setGravity(Gravity.center)
+            .setDismissType(DismissType.anywhere)
+            .setTargetView(binding.chipGroup)
+            .setDismissType(DismissType.anywhere)
+            .setGuideListener {
+                preferences.edit().let {
+                    it.putBoolean(SHARE_PREF_TUTORIAL, true)
+                    it.apply()
+                }
+            }
+        builder.build().show()
+
+    }}
 
 
     private fun createFont() {
@@ -124,18 +148,17 @@ class PictureOfTheDayFragment : Fragment() {
             FontsContractCompat.requestFont(requireContext(),request,callback, Handler(Looper.myLooper()!!))
         }
 
-    private fun clickChips() {
-
-
-        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.today_chip1 -> {
+    @SuppressLint("SetTextI18n")
+    private fun clickChips() = @Suppress("DEPRECATION")
+    binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+        when (checkedId) {
+            R.id.today_chip1 -> {
 
                     constraintSetAnimationStart()
                     disappearPictureOfTheDay()
                     viewModel.sendServerRequest(selectedDate, onError = ::loadingError)
                     binding.imageView.visibility = View.INVISIBLE
-                    binding.dataTextview.text = "Дата картинки " + selectedDate
+                    binding.dataTextview.text = getString(R.string.DateImages)  + selectedDate
                    Thread {
                        Thread.sleep(durationSet )
                        runOnUiThread {
@@ -148,7 +171,7 @@ class PictureOfTheDayFragment : Fragment() {
                     constraintSetAnimationStart()
                     disappearPictureOfTheDay()
                     viewModel.sendServerRequest(takeDate(-1), onError = ::loadingError)
-                    binding.dataTextview.text = "Дата картинки " + takeDate(-1)
+                    binding.dataTextview.text = getString(R.string.DateImages) + takeDate(-1)
                     Thread {
                         Thread.sleep(durationSet )
                         runOnUiThread {
@@ -156,20 +179,19 @@ class PictureOfTheDayFragment : Fragment() {
                         }
                     }.start()
 
-                }
-                R.id.befoYestrday_chip3 -> {
+            }
+            R.id.befoYestrday_chip3 -> {
 
-                    constraintSetAnimationStart()
-                    disappearPictureOfTheDay()
-                    viewModel.sendServerRequest(takeDate(-2), onError = ::loadingError)
-                    binding.dataTextview.text = "Дата картинки " + takeDate(-2)
-                    Thread {
-                        Thread.sleep(durationSet)
-                        runOnUiThread {
-                            binding.TextviewConstraintSet.text = takeDate(-2)
-                        }
-                    }.start()
-                }
+                constraintSetAnimationStart()
+                disappearPictureOfTheDay()
+                viewModel.sendServerRequest(takeDate(-2), onError = ::loadingError)
+                binding.dataTextview.text = getString(R.string.DateImages)  + takeDate(-2)
+                Thread {
+                    Thread.sleep(durationSet)
+                    runOnUiThread {
+                        binding.TextviewConstraintSet.text = takeDate(-2)
+                    }
+                }.start()
             }
         }
     }
@@ -186,7 +208,7 @@ class PictureOfTheDayFragment : Fragment() {
     private fun loadingError(throwable: Throwable) {
 
         Toast.makeText(mContext, "не прошла загрузка $throwable", Toast.LENGTH_LONG).show()
-        binding.progressBar.visibility = ProgressBar.INVISIBLE;
+        binding.progressBar.visibility = ProgressBar.INVISIBLE
 
         animationFadePictureOfTheDay()
         binding.TextviewConstraintSet.text = "ошибка загрузки"
@@ -338,7 +360,7 @@ class PictureOfTheDayFragment : Fragment() {
         transition.addTransition(fade)
         TransitionManager.beginDelayedTransition(binding.transitionsContainer, transition)
         binding.imageView.visibility = View.INVISIBLE
-        binding.progressBar.visibility = ProgressBar.INVISIBLE;
+        binding.progressBar.visibility = ProgressBar.INVISIBLE
     }
 
     private fun initBottomSheetBehavior() {
@@ -351,7 +373,7 @@ class PictureOfTheDayFragment : Fragment() {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(
                     "https://en.wikipedia.org/wiki/" +
-                            "${binding.inputEditText.text.toString()}"
+                            binding.inputEditText.text.toString()
                 )
             })
         }
@@ -384,8 +406,4 @@ class PictureOfTheDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }

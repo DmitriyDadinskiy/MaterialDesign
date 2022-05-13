@@ -4,13 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
-
 import com.kotlinmovie.materialdesign.R
 import com.kotlinmovie.materialdesign.databinding.FragmentSettingsBinding
 import com.kotlinmovie.materialdesign.ui.MainActivity
@@ -21,11 +16,7 @@ import com.kotlinmovie.materialdesign.ui.Cyan
 
 private const val SHARE_PREF_NAME = "SHARE_PREF_NAME"
 
-class SettingsFragment : Fragment(), View.OnClickListener {
-
-    private var _binding: FragmentSettingsBinding? = null
-    private val binding: FragmentSettingsBinding
-        get() = _binding!!
+class SettingsFragment : ViewBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate), View.OnClickListener {
 
 
     companion object {
@@ -44,15 +35,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         parentActivity = requireActivity() as MainActivity
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,8 +86,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
     }
 
-
-
     override fun onStart() {
         binding.nightThemeSwitch1.isChecked = preferences.getBoolean(SHARE_PREF_NAME, false)
         super.onStart()
@@ -119,13 +99,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         }
         super.onStop()
     }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
 
 }
 
