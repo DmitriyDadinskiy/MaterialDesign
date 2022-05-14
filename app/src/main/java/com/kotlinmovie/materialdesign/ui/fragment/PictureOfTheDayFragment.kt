@@ -33,6 +33,8 @@ import com.kotlinmovie.materialdesign.databinding.FragmentMainPictureOfDayBindin
 import com.kotlinmovie.materialdesign.ui.MainActivity
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayState
 import com.kotlinmovie.materialdesign.viewModel.PictureOfTheDayViewModel
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import org.chromium.base.ThreadUtils.runOnUiThread
 import smartdevelop.ir.eram.showcaseviewlib.GuideView
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
@@ -158,7 +160,7 @@ class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBind
                     disappearPictureOfTheDay()
                     viewModel.sendServerRequest(selectedDate, onError = ::loadingError)
                     binding.imageView.visibility = View.INVISIBLE
-                    binding.dataTextview.text = getString(R.string.DateImages)  + selectedDate
+                    binding.dataTextview.text = getString(R.string.DateImages) + " "  + selectedDate
                    Thread {
                        Thread.sleep(durationSet )
                        runOnUiThread {
@@ -171,7 +173,7 @@ class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBind
                     constraintSetAnimationStart()
                     disappearPictureOfTheDay()
                     viewModel.sendServerRequest(takeDate(-1), onError = ::loadingError)
-                    binding.dataTextview.text = getString(R.string.DateImages) + takeDate(-1)
+                    binding.dataTextview.text = getString(R.string.DateImages) + " " + takeDate(-1)
                     Thread {
                         Thread.sleep(durationSet )
                         runOnUiThread {
@@ -185,7 +187,7 @@ class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBind
                 constraintSetAnimationStart()
                 disappearPictureOfTheDay()
                 viewModel.sendServerRequest(takeDate(-2), onError = ::loadingError)
-                binding.dataTextview.text = getString(R.string.DateImages)  + takeDate(-2)
+                binding.dataTextview.text = getString(R.string.DateImages) + " "  + takeDate(-2)
                 Thread {
                     Thread.sleep(durationSet)
                     runOnUiThread {
@@ -245,6 +247,18 @@ class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBind
         (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
     }
 
+    private fun showNasaVideo(videoId: String) {
+        with(binding) {
+            lifecycle.addObserver(binding.youtubePlayer)
+
+            youtubePlayer.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    youTubePlayer.cueVideo(videoId, 0f)
+                }
+            })
+        }
+    }
 
     private fun renderData(pictureOfTheDayState: PictureOfTheDayState) {
         when (pictureOfTheDayState) {
@@ -258,7 +272,15 @@ class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBind
                 binding.progressBar.visibility = ProgressBar.VISIBLE
             }
             is PictureOfTheDayState.Success -> {
-                binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
+                if(pictureOfTheDayState.serverResponseData.mediaType == "video"){
+                    binding.youtubePlayer.visibility = View.VISIBLE
+                    binding.imageView.visibility = View.INVISIBLE
+                    showNasaVideo(pictureOfTheDayState.serverResponseData.url)
+                }else {
+                    binding.youtubePlayer.visibility = View.INVISIBLE
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
+                }
                 animationFadePictureOfTheDay()
                 constraintSetAnimationEnd()
 
@@ -304,6 +326,7 @@ class PictureOfTheDayFragment : ViewBindingFragment<FragmentMainPictureOfDayBind
             }
         }
     }
+
 
     private fun constraintSetAnimationEnd() {
         val constraintSet = ConstraintSet()
