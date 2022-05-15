@@ -19,6 +19,25 @@
         app:layout_constraintBottom_toTopOf="@+id/main"
         app:layout_constraintEnd_toEndOf="@+id/main"
         app:layout_constraintStart_toStartOf="@+id/main" />
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:autoPlay="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/nowVideoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintStart_toStartOf="@+id/main"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
@@ -44,7 +63,7 @@
             android:id="@+id/data_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Выберите день"
+            android:text="Выберите день "
             android:textSize="20dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/inputLayout"

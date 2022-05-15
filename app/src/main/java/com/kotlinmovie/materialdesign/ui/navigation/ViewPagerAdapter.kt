@@ -9,9 +9,9 @@ const val SPUTNIK_KEY = 2
 const val SOLAR_KEY = 3
 const val SYSTEM_KEY = 4
 
-class ViewPagerAdapter(
-    fragmentManager: FragmentActivity)
+class ViewPagerAdapter(fragmentManager: NavigationFragment)
     : FragmentStateAdapter(fragmentManager) {
+
     private val fragment = arrayOf(FragmentEarth(),FragmentMars(), FragmentSputnik(),FragmentSolar(),
         FragmentSystem())
 
