@@ -1,18 +1,16 @@
 package com.kotlinmovie.materialdesign.ui.fragment
 
-import android.content.Intent
-import android.os.Bundle
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kotlinmovie.materialdesign.R
 import com.kotlinmovie.materialdesign.databinding.BottomNavigationLayoutBinding
-import com.kotlinmovie.materialdesign.ui.coordinator.LayoutActivity
-import com.kotlinmovie.materialdesign.ui.navigation.BottomNavigationViewActivity
-import com.kotlinmovie.materialdesign.ui.navigation.NavigationActivity
+import com.kotlinmovie.materialdesign.ui.coordinator.LayoutFragment
+import com.kotlinmovie.materialdesign.ui.navigation.BottomNavigationViewFragment
+import com.kotlinmovie.materialdesign.ui.navigation.NavigationFragment
 import com.kotlinmovie.materialdesign.ui.recyclerView.RecyclerViewFragment
 
 
@@ -42,16 +40,21 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_earth -> {
-                    startActivity(Intent(requireContext(),BottomNavigationViewActivity::class.java))
-
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, BottomNavigationViewFragment.newInstance()).addToBackStack("")
+                        .commit()
                 }
                 R.id.navigation_pager -> {
-                    startActivity(Intent(requireContext(),NavigationActivity::class.java))
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, NavigationFragment.newInstance()).addToBackStack("")
+                        .commit()
 
 
                 }
                 R.id.navigation_layout -> {
-                    startActivity(Intent(requireContext(),LayoutActivity ::class.java))
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, LayoutFragment.newInstance()).addToBackStack("")
+                        .commit()
 
                 }
                 R.id.animation_rotate_fab ->{
