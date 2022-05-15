@@ -40,30 +40,43 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_earth -> {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, BottomNavigationViewFragment.newInstance()).addToBackStack("")
+                    requireActivity().supportFragmentManager.beginTransaction().setCustomAnimations(
+                        R.anim.slide_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.slide_out)
+                        .replace(R.id.container, BottomNavigationViewFragment.newInstance())
+                        .addToBackStack("")
                         .commit()
                 }
                 R.id.navigation_pager -> {
                     requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in,
+                        R.anim.slide_out)
                         .replace(R.id.container, NavigationFragment.newInstance()).addToBackStack("")
                         .commit()
-
 
                 }
                 R.id.navigation_layout -> {
                     requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in,
+                            R.anim.slide_out)
                         .replace(R.id.container, LayoutFragment.newInstance()).addToBackStack("")
                         .commit()
 
                 }
                 R.id.animation_rotate_fab ->{
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, AnimationRotateFabFragment.newInstance()).addToBackStack("")
+                        .setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in,
+                            R.anim.slide_out)
+                        .replace(R.id.container, AnimationRotateFabFragment.newInstance())
+                        .addToBackStack("")
                         .commit()
                 }
                 R.id.recycler ->{
                     requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in,
+                            R.anim.slide_out)
                         .replace(R.id.container, RecyclerViewFragment.newInstance()).addToBackStack("")
                         .commit()
                 }
